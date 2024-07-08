@@ -12,9 +12,9 @@ pub mod message_queue {
 
     /// address of L2MessageQueue predeploy
     pub static ADDRESS: LazyLock<Address> =
-        LazyLock::new(|| Address::from_str("0x5300000000000000000000000000000000000000").unwrap());
+        LazyLock::new(|| Address::from_str("0x5300000000000000000000000000000000000001").unwrap());
     /// the slot of withdraw root in L2MessageQueue
-    pub static WITHDRAW_TRIE_ROOT_SLOT: U256 = U256::zero();
+    pub static WITHDRAW_TRIE_ROOT_SLOT: LazyLock<U256> = LazyLock::new(|| U256::from(33));
 }
 
 /// Helper for L1GasPriceOracle contract
@@ -27,7 +27,7 @@ pub mod l1_gas_price_oracle {
 
     /// L1GasPriceOracle predeployed address
     pub static ADDRESS: LazyLock<Address> =
-        LazyLock::new(|| Address::from_str("0x5300000000000000000000000000000000000002").unwrap());
+        LazyLock::new(|| Address::from_str("0x530000000000000000000000000000000000000F").unwrap());
     /// L1 base fee slot in L1GasPriceOracle
     pub static BASE_FEE_SLOT: LazyLock<U256> = LazyLock::new(|| U256::from(1));
 
@@ -39,12 +39,12 @@ pub mod l1_gas_price_oracle {
 
     /// THe following 3 slots plus `BASE_FEE_SLOT` will be used for l1 fee after curie fork
     /// L1 BlobBaseFee slot in L1GasPriceOracle after Curie fork
-    pub static L1_BLOB_BASEFEE_SLOT: LazyLock<U256> = LazyLock::new(|| U256::from(5));
+    pub static L1_BLOB_BASEFEE_SLOT: LazyLock<U256> = LazyLock::new(|| U256::from(6));
     /// L1 commitScalar slot in L1GasPriceOracle after Curie fork
-    pub static COMMIT_SCALAR_SLOT: LazyLock<U256> = LazyLock::new(|| U256::from(6));
+    pub static COMMIT_SCALAR_SLOT: LazyLock<U256> = LazyLock::new(|| U256::from(7));
     /// L1 blob_scalar slot in L1GasPriceOracle after Curie fork
-    pub static BLOB_SCALAR_SLOT: LazyLock<U256> = LazyLock::new(|| U256::from(7));
-    pub static IS_CURIE_SLOT: LazyLock<U256> = LazyLock::new(|| U256::from(8));
+    pub static BLOB_SCALAR_SLOT: LazyLock<U256> = LazyLock::new(|| U256::from(8));
+    pub static IS_CURIE_SLOT: LazyLock<U256> = LazyLock::new(|| U256::from(9));
     pub static INITIAL_COMMIT_SCALAR: LazyLock<U256> =
         LazyLock::new(|| U256::from(230759955285u64));
     pub static INITIAL_BLOB_SCALAR: LazyLock<U256> = LazyLock::new(|| U256::from(417565260));
@@ -78,4 +78,17 @@ pub mod l1_gas_price_oracle {
             storage: HashMap::from_iter(storages),
         }
     }
+}
+
+/// Helper for L2SequencerSet contract
+pub mod l2_sequencer_set {
+    use super::*;
+    use crate::U256;
+    use std::{str::FromStr, sync::LazyLock};
+
+    /// address of L2SequencerSet predeploy
+    pub static ADDRESS: LazyLock<Address> =
+        LazyLock::new(|| Address::from_str("0x5300000000000000000000000000000000000017").unwrap());
+    /// the slot of sequencer root in L2SequencerSet
+    pub static SEQUENCER_SET_ROOT_SLOT: LazyLock<U256> = LazyLock::new(|| U256::from(101));
 }
